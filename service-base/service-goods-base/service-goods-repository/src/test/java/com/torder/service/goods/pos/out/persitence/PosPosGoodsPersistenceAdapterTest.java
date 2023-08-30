@@ -21,10 +21,10 @@ import java.util.Map;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {PosPosGoodsPersistenceAdapterPort.class})
-class PosPosGoodsPersistenceAdapterPortTest {
+@SpringBootTest(classes = {PosPosGoodsPersistenceAdapter.class})
+class PosPosGoodsPersistenceAdapterTest {
 
-  @Autowired private PosPosGoodsPersistenceAdapterPort posPosGoodsPersistenceAdapterPort;
+  @Autowired private PosPosGoodsPersistenceAdapter posPosGoodsPersistenceAdapter;
 
   @MockBean private PosGoodsMapper posGoodsMapper;
 
@@ -39,18 +39,14 @@ class PosPosGoodsPersistenceAdapterPortTest {
   @DisplayName("삭제상품 정보를 로그에 기록한다.")
   @Test
   void deleteRecodeGoodsLog() {
-
-    this.posPosGoodsPersistenceAdapterPort.deleteRecodeGoodsLog("1", "1000", "OPTION");
-
+    this.posPosGoodsPersistenceAdapter.deleteRecodeGoodsLog("1", "1000", "OPTION");
     verify(this.posGoodsLogRepository, times(1)).save(any(PosGoodsLogEntity.class));
   }
 
   @DisplayName("신규상품 정보를 로그에 기록한다.")
   @Test
   void newRecodeGoodsLog() {
-
-    this.posPosGoodsPersistenceAdapterPort.newRecodeGoodsLog("1", "1000", "MAIN");
-
+    this.posPosGoodsPersistenceAdapter.newRecodeGoodsLog("1", "1000", "MAIN");
     verify(this.posGoodsLogRepository, times(1)).save(any(PosGoodsLogEntity.class));
   }
 
@@ -60,22 +56,17 @@ class PosPosGoodsPersistenceAdapterPortTest {
     ModifyRecodeGoodsLogPort.ModifyNameRecodeGoodsLogInDto modifyPriceRecodeGoodsLogInDto =
         new ModifyRecodeGoodsLogPort.ModifyNameRecodeGoodsLogInDto(
             "테스트 상품 1", "테스트 상품 2", "1000", "1", "MAIN");
-
-    this.posPosGoodsPersistenceAdapterPort.modifyNameRecodeGoodsLog(modifyPriceRecodeGoodsLogInDto);
-
+    this.posPosGoodsPersistenceAdapter.modifyNameRecodeGoodsLog(modifyPriceRecodeGoodsLogInDto);
     verify(this.posGoodsLogRepository, times(1)).save(any(PosGoodsLogEntity.class));
   }
 
   @DisplayName("가격이 변경 된 상품정보 로그를 기록한다.")
   @Test
   void modifyPriceRecodeGoodsLog() {
-
     var modifyPriceRecodeGoodsLogInDto =
         new ModifyRecodeGoodsLogPort.ModifyPriceRecodeGoodsLogInDto(
             1000, 2000, "1000", "1", "MAIN");
-    this.posPosGoodsPersistenceAdapterPort.modifyPriceRecodeGoodsLog(
-        modifyPriceRecodeGoodsLogInDto);
-
+    this.posPosGoodsPersistenceAdapter.modifyPriceRecodeGoodsLog(modifyPriceRecodeGoodsLogInDto);
     verify(this.posGoodsLogRepository, times(1)).save(any(PosGoodsLogEntity.class));
   }
 
@@ -84,10 +75,8 @@ class PosPosGoodsPersistenceAdapterPortTest {
   void savePosRaw() {
     when(this.posRawMapper.toEntity(any(SaveGoodsRawPort.PosRawInDto.class)))
         .thenReturn(new PosRawEntity(Map.of(), Map.of(), Map.of(), ""));
-
     var posRawInDto = new SaveGoodsRawPort.PosRawInDto(Map.of(), Map.of(), Map.of(), "");
-    this.posPosGoodsPersistenceAdapterPort.savePosRaw(posRawInDto);
-
+    this.posPosGoodsPersistenceAdapter.savePosRaw(posRawInDto);
     verify(this.posRawMapper, times(1)).toEntity(any(SaveGoodsRawPort.PosRawInDto.class));
     verify(this.posRawRepository, times(1)).save(any(PosRawEntity.class));
   }
@@ -98,9 +87,7 @@ class PosPosGoodsPersistenceAdapterPortTest {
   @DisplayName("포스 상품 아이디로 포스 상품을 삭제 한다.")
   @Test
   void deletePosGoods() {
-
-    this.posPosGoodsPersistenceAdapterPort.deletePosGoods(List.of("1"));
-
+    this.posPosGoodsPersistenceAdapter.deletePosGoods(List.of("1"));
     verify(this.posGoodsRepository, atLeastOnce()).deleteAllByIdInBatch(anyList());
   }
 
@@ -109,10 +96,8 @@ class PosPosGoodsPersistenceAdapterPortTest {
   void savePosGoods() {
     when(this.posGoodsMapper.toEntity(any(UpdatePosGoodsPort.PosGoodsInDto.class)))
         .thenReturn(new PosGoodsEntity());
-
-    this.posPosGoodsPersistenceAdapterPort.updatePosGoods(
+    this.posPosGoodsPersistenceAdapter.updatePosGoods(
         new UpdatePosGoodsPort.PosGoodsInDto("1", "1", BigDecimal.valueOf(0), false, "MAIN", "1"));
-
     verify(this.posGoodsMapper, times(1)).toEntity(any(UpdatePosGoodsPort.PosGoodsInDto.class));
     verify(this.posGoodsRepository, times(1)).save(any(PosGoodsEntity.class));
   }
@@ -122,10 +107,8 @@ class PosPosGoodsPersistenceAdapterPortTest {
   void updatePosGoods() {
     when(this.posGoodsMapper.toEntity(any(UpdatePosGoodsPort.PosGoodsInDto.class)))
         .thenReturn(new PosGoodsEntity());
-
-    this.posPosGoodsPersistenceAdapterPort.updatePosGoods(
+    this.posPosGoodsPersistenceAdapter.updatePosGoods(
         new UpdatePosGoodsPort.PosGoodsInDto("1", "1", BigDecimal.valueOf(0), false, "MAIN", "1"));
-
     verify(this.posGoodsMapper, times(1)).toEntity(any(UpdatePosGoodsPort.PosGoodsInDto.class));
     verify(this.posGoodsRepository, times(1)).save(any(PosGoodsEntity.class));
   }

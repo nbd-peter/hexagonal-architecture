@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Primary
 @Component
 @RequiredArgsConstructor
-public class PosPosGoodsPersistenceAdapterPort extends BaseAdapter
+public class PosPosGoodsPersistenceAdapter extends BaseAdapter
     implements FindUseGoodsPort,
         SaveGoodsRawPort,
         RecodeGoodsLogPort,

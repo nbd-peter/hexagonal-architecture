@@ -1,3 +1,5 @@
+# 개발 가이드 - V1.0 (작성중)
+
 ## 개발 환경
 
 * [Docker Client](https://www.docker.com/)
@@ -8,6 +10,7 @@
 * [FaKer](https://github.com/DiUS/java-faker)
 * [Formatter](https://github.com/google/styleguide)
 * [QueryDSL](http://querydsl.com/)
+* [TestContainers](https://testcontainers.com/)
 
 ---
 
@@ -198,15 +201,16 @@
 
 ### ~ Service
 
-* useCase 인터페이스를 구현한다. 
-* 비지니스 로직을 작성하고 Port 인터페이스 실행 흐름을 제어한다. 
+* useCase 인터페이스를 구현한다.
+* 비지니스 로직을 작성하고 Port 인터페이스 실행 흐름을 제어한다.
 * 반드시 비지니스 로직 관련 행위 테스트를 작성한다.
+* 테스트 시나리오는 반드시 @Display(테스트 시나리오) 명시한다.
 
 ### ~ UseCase
 
-* useCase 인터페이스 필요한 in,out 인터페이스를 정의한다. 
-* primitive type 호출 가능한 형태인 경우 primitive type 유지한다. 
-* primitive type 리턴 가능한 형태인 경우 primitive type 유지한다. 
+* useCase 인터페이스 필요한 in,out 인터페이스를 정의한다.
+* primitive type 호출 가능한 형태인 경우 primitive type 유지한다.
+* primitive type 리턴 가능한 형태인 경우 primitive type 유지한다.
 * 인터페이스 객체 정의시 불변 객체로 지정한다. (Recode 추천)
 
 ### ~ UseCaseInDTO (Optional)
@@ -214,7 +218,7 @@
 * useCase 인터페이스로 파라미터 오브젝트. 
 * Validation 정의 한다. (Optional)
 * 인터페이스 정의시 불변 객체로 지정한다. (Recode 추천)
-* UseCaseInDTO 관련 로직을 캡슐화 한다. 
+* useCaseInDTO 관련 로직을 캡슐화 한다. 
 * 캡슐화 로직이 있는 경우 반드시 테스트 케이스를 작성한다.
 
 ### ~ UseCaseOutDTO (Optional)
@@ -267,14 +271,14 @@
 * Entity를 outPortDTO로 변환하는 인터페이스를 구현한다. (MapStruct 추천)
 
 ### ~ Entity
-* 인덱스,설명,컬럼 제약조건을 반드시 명시한다. 
-* ID는 UUID를 기본으로 사용한다. (SequenceGenerator, GenerationType.IDENTITY) 사용하지 않기 (bulk insert 성능 문제 발생.)
+* 인덱스,설명,컬럼 제약조건을 반드시 명시한다.
+* ID는 정렬가능 한 UUID를 기본으로 사용한다. (SequenceGenerator, GenerationType.IDENTITY) 사용하지 않기 (bulk insert 성능 문제 발생.)
 * 인덱스 명 규칙 (IX_테이블명_컬럼명1_컬럼명2, FK_테이블명_컬럼명)
-* 상태코드가 3개 이상인 경우 @Enumerted(EnumType.STRING)을 이용한다. 
-* index cardinality 낮은 컬럼은 인덱스를 생성하지 않는다. 
-* 필드 정의시 컬럼에 대응되는 primitive type(boolean, int, long...) 존재하는 경우 primitive type 지정한다. 
-* 요구 조건이 명확하지 않은 불필요한 연관관계 맺지 않는다. 
-* soft selete를 사용한다. 
+* 상태코드가 3개 이상인 경우 @Enumerted(EnumType.STRING)을 이용한다.
+* index cardinality 낮은 컬럼은 인덱스를 생성하지 않는다.
+* 필드 정의시 컬럼에 대응되는 primitive type(boolean, int, long...) 존재하는 경우 primitive type 지정한다.
+* 요구 조건이 명확하지 않은 불필요한 연관관계 맺지 않는다.
+* soft selete를 사용한다.
 * 동시성이 요구되는 테이블은 낙관적 락을 이용한다. (@Version 추천)
 
 ### ~ Repository

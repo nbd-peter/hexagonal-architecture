@@ -59,7 +59,6 @@ subprojects {
     }
 }
 
-// 루트 모듈
 project(':service-base:service-combine') {
     dependencies {
         api project(':service-base:service-goods-base:service-goods-web')

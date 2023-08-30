@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/service-base" />
+            <option value="$PROJECT_DIR$/service-base/service-combine" />
+            <option value="$PROJECT_DIR$/service-base/service-common-application" />
+            <option value="$PROJECT_DIR$/service-base/service-common-repository" />
+            <option value="$PROJECT_DIR$/service-base/service-common-web" />
+            <option value="$PROJECT_DIR$/service-base/service-goods-base" />
+            <option value="$PROJECT_DIR$/service-base/service-goods-base/service-goods-application" />
+            <option value="$PROJECT_DIR$/service-base/service-goods-base/service-goods-repository" />
+            <option value="$PROJECT_DIR$/service-base/service-goods-base/service-goods-web" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

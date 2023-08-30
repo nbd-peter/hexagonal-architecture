@@ -1,0 +1,24 @@
+spring:
+  config:
+    import:
+      - classpath:service-common-application.yml
+      - classpath:service-common-repository.yml
+      - classpath:service-common-web.yml
+  profiles:
+    active:
+      - local
+    group:
+      local:
+        - repository-local
+      test:
+        - repository-test
+      stage:
+        - repository-stage
+      prod:
+        - repository-prod
+  datasource:
+    driver-class-name:
+
+logging:
+  level:
+    org.springframework.web: debug

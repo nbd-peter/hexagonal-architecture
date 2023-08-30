@@ -1,0 +1,105 @@
+#https://techblog.woowahan.com/2695/ 참고 설정
+spring:
+  jpa:
+    show-sql: false
+    database-platform: MYSQL
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.show_sql: false
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      hibernate.default_fetch_size: ${chunkSize:100}
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.jdbc.batch_size: ${chunkSize:100}
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+
+  # TODO 운영 환경에서 분리 필요
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: false
+#    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
+#    cachePrepStmts: true
+#    prepStmtCacheSize: 250
+#    prepStmtCacheSqlLimit: 2048
+#    useServerPrepStmts: true
+#    useLocalSessionState: true
+#    rewriteBatchedStatements: true
+#    cacheResultSetMetadata: true
+#    cacheServerConfiguration: true
+#    elideSetAutoCommits: true
+#    maintainTimeStats: false
+
+--- # local 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-local"
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/torder?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
+    username: torder_admin
+    password: torder_admin
+
+--- # test 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-test"
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url:
+    username:
+    password:
+
+--- # stage 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-stg"
+
+  jpa:
+    show-sql: true
+
+  write:
+    datasource:
+      url:
+      username:
+      password:
+
+  read:
+    datasource:
+      url:
+      username:
+      password:
+
+--- # prod 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-prod"
+
+  write:
+    datasource:
+      url:
+      username:
+      password:
+
+  read:
+    datasource:
+      url:
+      username:
+      password:

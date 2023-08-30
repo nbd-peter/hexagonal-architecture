@@ -1,0 +1,34 @@
+spring:
+
+springdoc:
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /doc
+    tryItOutEnabled: true
+    tagsSorter: alpha
+    filter: true
+
+--- # local 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-local"
+
+--- # test 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-test"
+
+--- # stage 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-stg"
+
+--- # prod 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-prod"

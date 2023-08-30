@@ -1,0 +1,25 @@
+spring:
+
+--- # local 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-local"
+
+--- # test 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-test"
+
+--- # stage 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-stg"
+
+--- # prod 설정
+spring:
+  config:
+    activate:
+      on-profile: "repository-prod"
